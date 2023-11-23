@@ -5,21 +5,29 @@ export const AuthContext = createContext();
 
 // Create Provider
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(undefined);
 
   // Simulate an async function to fetch auth state
   useEffect(() => {
+    console.log(auth);
     const fetchAuthState = async () => {
-      // Replace this with your actual logic to fetch auth state
-      const authState = await Promise.resolve({ isAuthenticated: false });
-      setAuth(authState);
+      const auth = localStorage.getItem("auth");
+      if (auth) {
+        setAuth(JSON.parse(auth));
+        return;
+      }
     };
 
     fetchAuthState();
   }, []);
 
+  const saveAuthState = (auth) => {
+    localStorage.setItem("auth", JSON.stringify(auth));
+    setAuth(auth);
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, saveAuthState }}>
       {children}
     </AuthContext.Provider>
   );

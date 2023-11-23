@@ -34,7 +34,7 @@ function App() {
     <Router>
       <Preloader load={load} />
       <AuthProvider>
-        <div className="App" id={load ? "no-scroll" : "scroll"}>
+        <div className="App w-full" id={load ? "no-scroll" : "scroll"}>
           <Navbar />
           <ScrollToTop />
           <Routes>

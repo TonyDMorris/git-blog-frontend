@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "./Auth/AuthContext";
@@ -18,6 +18,9 @@ function classNames(...classes) {
 export default function Navbar() {
   const [show, setShow] = useState(false);
   const { auth, setAuth } = useContext(AuthContext);
+  useEffect(() => {
+    console.log(auth);
+  }, [auth]);
   return (
     <Disclosure as="nav" className="bg-slate-900">
       {({ open }) => (
@@ -65,15 +68,15 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {!auth ? (
+                {auth ? (
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="relative flex rounded-full bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
-                          className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          className="h-8  w-8 rounded-full"
+                          src={`https://github.com/${auth.user.username}.png`}
                           alt=""
                         />
                       </Menu.Button>

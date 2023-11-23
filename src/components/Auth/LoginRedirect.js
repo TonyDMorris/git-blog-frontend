@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 const backendUrl = "https://strapi.evertech.software";
 
@@ -8,6 +9,7 @@ const LoginRedirect = (props) => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
+  const { auth, saveAuthState } = useContext(AuthContext);
 
   useEffect(() => {
     // Successfully logged with the provider
@@ -27,18 +29,21 @@ const LoginRedirect = (props) => {
       .then((res) => {
         // Successfully logged with Strapi
         // Now saving the jwt to use it for future authenticated requests to Strapi
-        localStorage.setItem("jwt", res.jwt);
-        localStorage.setItem("username", res.user.username);
+        saveAuthState({
+          jwt: res.jwt,
+          user: res.user,
+        });
+
         setText(
           "You have been successfully logged in. You will be redirected in a few seconds..."
         );
-        setTimeout(() => navigate("/"), 3000); // Redirect to homepage after 3 sec
+        setTimeout(() => navigate("/"), 2000); // Redirect to homepage after 3 sec
       })
       .catch((err) => {
         console.log(err);
         setText("An error occurred, please see the developer console.");
       });
-  }, [navigate, location, location.search, params.providerName]);
+  }, [navigate, location, location.search, params.providerName, saveAuthState]);
 
   return <p>{text}</p>;
 };
