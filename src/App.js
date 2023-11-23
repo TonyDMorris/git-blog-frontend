@@ -3,9 +3,9 @@ import Preloader from "../src/components/Pre";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
-import Projects from "./components/Projects/Projects";
+
 import Footer from "./components/Footer";
-import Resume from "./components/Resume/ResumeNew";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -17,6 +17,7 @@ import "./style.css";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./components/Auth/AuthContext";
+import LoginRedirect from "./components/Auth/LoginRedirect";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -38,8 +39,10 @@ function App() {
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/signin" element={<About />} />
-
+            <Route
+              path="/connect/:providerName/redirect"
+              element={<LoginRedirect></LoginRedirect>}
+            />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Footer />

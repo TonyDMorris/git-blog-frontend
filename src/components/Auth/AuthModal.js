@@ -1,9 +1,8 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function AuthModal({ setShow, show }) {
   const cancelButtonRef = useRef(null);
@@ -39,46 +38,40 @@ export default function AuthModal({ setShow, show }) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-slate text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-slate dark:bg-slate-800 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-600"
-                        aria-hidden="true"
-                      />
-                    </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
+                        className="text-base font-semibold leading-6 text-white"
                       >
-                        Deactivate account
+                        Activate your account
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          Are you sure you want to deactivate your account? All
-                          of your data will be permanently removed. This action
-                          cannot be undone.
+                        <p className="text-sm text-white">
+                          GitBlog uses GitHub OAuth to authenticate users and to
+                          read your selected repositories. <br />
+                          Private repository information is never saved. <br />
+                          GitBlog will never have access to your GitHub
+                          password.
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="bg-slate-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                    onClick={() => setShow(false)}
-                  ></button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-green-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-slate-50 sm:mt-0 sm:w-auto"
-                    onClick={() => setShow(false)}
-                    ref={cancelButtonRef}
+                <div className="bg-slate-900  px-4 py-4 flex flex-row justify-between gap-2">
+                  <FontAwesomeIcon
+                    className="text-white w-8 h-8 hidden sm:inline-block"
+                    icon={faGithub}
+                  />
+                  <a
+                    href="https://strapi.evertech.software/api/connect/github"
+                    className="content-between no-underline w-full rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-green-500  sm:w-auto"
+                    onClick={() => {}}
                   >
-                    Cancel
-                  </button>
+                    {"Authorize with GitHub"}
+                  </a>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
