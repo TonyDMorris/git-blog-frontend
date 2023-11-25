@@ -9,11 +9,23 @@ export const AuthProvider = ({ children }) => {
 
   // Simulate an async function to fetch auth state
   useEffect(() => {
-    console.log(auth);
     const fetchAuthState = async () => {
       const auth = localStorage.getItem("auth");
+      console.log(auth);
       if (auth) {
-        setAuth(JSON.parse(auth));
+        const newAuth = JSON.parse(auth);
+        if (newAuth.user.githubID) {
+          setAuth(newAuth);
+          return;
+        }
+        const githubUser = await fetch(
+          `https://api.github.com/users/${newAuth.user.username}`
+        ).then((res) => res.json());
+        const githubID = githubUser.id;
+        setAuth({
+          jwt: newAuth.jwt,
+          user: { ...newAuth.user, githubID: githubID },
+        });
         return;
       }
     };

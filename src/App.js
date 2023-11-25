@@ -18,6 +18,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import LoginRedirect from "./components/Auth/LoginRedirect";
+import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -39,6 +40,7 @@ function App() {
           <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route
               path="/connect/:providerName/redirect"
               element={<LoginRedirect></LoginRedirect>}

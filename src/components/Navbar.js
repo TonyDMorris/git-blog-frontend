@@ -4,12 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "./Auth/AuthContext";
 import AuthModal from "./Auth/AuthModal";
 
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-];
+const navigation = [{ name: "Dashboard", href: "/dashboard", current: true }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
