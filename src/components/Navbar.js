@@ -1,5 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "./Auth/AuthContext";
 import AuthModal from "./Auth/AuthModal";
@@ -12,7 +13,8 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const [show, setShow] = useState(false);
-  const { auth, setAuth } = useContext(AuthContext);
+  const { auth, setAuth, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(auth);
   }, [auth]);
@@ -88,41 +90,18 @@ export default function Navbar() {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-slate py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <button
                               className={classNames(
                                 active ? "bg-slate-100" : "",
-                                "block px-4 py-2 text-sm text-white"
+                                "px-4 py-2 text-sm text-white bg-slate-900 hover:bg-slate-700 rounded cursor-pointer w-full text-left"
                               )}
-                            >
-                              Your Profile
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(
-                                active ? "bg-slate-100" : "",
-                                "block px-4 py-2 text-sm text-white"
-                              )}
-                            >
-                              Settings
-                            </a>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href="#"
-                              className={classNames(
-                                active ? "bg-slate-100" : "",
-                                "block px-4 py-2 text-sm text-white-700"
-                              )}
+                              onClick={() => {
+                                logOut();
+                                navigate("/");
+                              }}
                             >
                               Sign out
-                            </a>
+                            </button>
                           )}
                         </Menu.Item>
                       </Menu.Items>

@@ -38,8 +38,13 @@ export const AuthProvider = ({ children }) => {
     setAuth(auth);
   };
 
+  const logOut = () => {
+    localStorage.removeItem("auth");
+    setAuth(undefined);
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, saveAuthState }}>
+    <AuthContext.Provider value={{ auth, saveAuthState, logOut }}>
       {children}
     </AuthContext.Provider>
   );

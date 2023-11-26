@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (auth) {
-      return getInstallation(auth.jwt)
+      return getInstallation({ jwt: auth.jwt, repositoryConfigs: true })
         .then((installation) => {
           if (!installation) {
             setShowNotInstalled(true);
@@ -51,7 +51,7 @@ const Installed = ({ installation }) => {
       <h1>Installed</h1>
       <p>{installation.id}</p>
       <p>{installation.username}</p>
-      <p>{installation.attributes.repositories.data.length}</p>
+      <p>{installation.attributes.repository_configurations.data.length}</p>
     </div>
   );
 };
