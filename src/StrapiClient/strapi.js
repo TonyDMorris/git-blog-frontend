@@ -2,8 +2,8 @@ const baseURL = process.env.REACT_APP_API_URL || "http://localhost:1337";
 
 export const getInstallation = async ({
   jwt,
-  repositories = false,
-  repositoryConfigs = false,
+  repositories,
+  repositoryConfigs,
 }) => {
   const query = [];
   if (repositories) {
@@ -13,7 +13,7 @@ export const getInstallation = async ({
     query.push("populate[repository_configurations][populate][0]=repository");
   }
   const response = await fetch(
-    `${baseURL}/api/installations${query.length ? "?" + query.join("&") : ""}}`,
+    `${baseURL}/api/installations${query.length ? "?" + query.join("&") : ""}`,
     {
       method: "GET",
       headers: {
