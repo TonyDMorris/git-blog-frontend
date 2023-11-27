@@ -22,6 +22,7 @@
     "purest": "^4.0.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.2.1",
+    "react-cron-generator": "^2.0.10",
     "react-dom": "^17.0.2",
     "react-github-calendar": "^3.2.2",
     "react-icons": "^4.8.0",

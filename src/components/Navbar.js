@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "./Auth/AuthContext";
 import AuthModal from "./Auth/AuthModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const navigation = [{ name: "Dashboard", href: "/dashboard", current: true }];
 
@@ -112,8 +114,9 @@ export default function Navbar() {
                     onClick={() => {
                       setShow(true);
                     }}
-                    className=" text-white"
+                    className="flex font-bold text-md items-center justify-between gap-3 border-1 text-white bg-green-800 rounded  py-1 px-3 border-2 border-green-700 hover:bg-green-600 hover:border-green-600 "
                   >
+                    <FontAwesomeIcon icon={faGithub} />
                     Sign In
                   </button>
                 )}

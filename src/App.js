@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import LoginRedirect from "./components/Auth/LoginRedirect";
 import Dashboard from "./components/Dashboard/Dashboard";
+import ConfigurationGenerator from "./components/Dashboard/ConfigurationGenerator";
 
 function App() {
   const [load, upadateLoad] = useState(true);
@@ -44,6 +45,10 @@ function App() {
             <Route
               path="/connect/:providerName/redirect"
               element={<LoginRedirect></LoginRedirect>}
+            />
+            <Route
+              path="/repository-configuration"
+              element={<ConfigurationGenerator />}
             />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

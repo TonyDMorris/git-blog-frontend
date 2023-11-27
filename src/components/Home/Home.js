@@ -8,10 +8,10 @@ import Type from "./Type";
 function Home() {
   return (
     <section className="w-full">
-      <Container fluid className="home-section w-full" id="home">
+      <Container fluid className="home-section w-full min-h-screen" id="home">
         <Particle />
         <Container className="home-content">
-          <Row>
+          <Row className="">
             <Col md={7} className="home-header">
               <h1 style={{ paddingBottom: 15 }} className="heading">
                 Hi There!{" "}

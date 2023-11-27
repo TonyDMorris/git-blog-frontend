@@ -4,7 +4,7 @@ import { getInstallation } from "../../StrapiClient/strapi";
 import { AuthContext } from "../Auth/AuthContext";
 import ErrorModal from "../ErrorModal";
 import NotInstalled from "./NotInstalled";
-import Configurations from "./Configurations/Configurations";
+import Configurations from "./Configurations";
 
 const Dashboard = () => {
   const [installation, setInstallation] = useState(undefined);
@@ -31,8 +31,7 @@ const Dashboard = () => {
     }
   }, [auth]);
   return (
-    <div className="flex items-center justify-center">
-      {/* <Particle /> */}
+    <div className="flex items-start py-5 justify-center min-h-screen">
       <ErrorModal setShow={setShowError} show={showError} error={error} />
       {auth && (
         <NotInstalled
