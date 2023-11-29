@@ -33,8 +33,11 @@ const LoginRedirect = (props) => {
           jwt: res.jwt,
           user: res.user,
         });
-
-        navigate("/dashboard"); // Redirect to homepage after 3 sec
+        setText("Redirecting to dashboard...");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+        // Redirect to homepage after 3 sec
       })
       .catch((err) => {
         console.log(err);
