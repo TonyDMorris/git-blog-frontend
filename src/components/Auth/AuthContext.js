@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getInstallation } from "../../StrapiClient/strapi";
+import NotInstalled from "../Dashboard/NotInstalled";
 
 // Create Context
 export const AuthContext = createContext();
@@ -8,6 +9,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(undefined);
   const [installation, setInstallation] = useState(undefined);
+  const [showNotInstalled, setShowNotInstalled] = useState(false);
   const fetchAuthState = async () => {
     const auth = localStorage.getItem("auth");
     console.log(auth);
@@ -33,15 +35,16 @@ export const AuthProvider = ({ children }) => {
     fetchAuthState();
   }, []);
   const fetchInstallation = async () => {
-    if (!auth) {
-      fetchAuthState();
-      const installation = await getInstallation({
-        jwt: auth.jwt,
-        repositories: true,
-        repositoryConfigs: true,
-      });
-      setInstallation(installation);
+    const installation = await getInstallation({
+      jwt: auth.jwt,
+      repositories: true,
+      repositoryConfigs: true,
+    });
+    if (!installation) {
+      setShowNotInstalled(true);
+      return;
     }
+    setInstallation(installation);
   };
   useEffect(() => {
     if (auth) {
@@ -90,7 +93,16 @@ export const AuthProvider = ({ children }) => {
         fetchInstallation,
       }}
     >
-      {children}
+      <>
+        {auth && (
+          <NotInstalled
+            githubID={auth.user.githubID}
+            setShow={setShowNotInstalled}
+            show={showNotInstalled}
+          />
+        )}
+        {children}
+      </>
     </AuthContext.Provider>
   );
 };

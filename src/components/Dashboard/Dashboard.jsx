@@ -7,26 +7,10 @@ import NotInstalled from "./NotInstalled";
 import Configurations from "./Configurations";
 
 const Dashboard = () => {
-  const { auth, installation } = useContext(AuthContext);
-
-  const [showNotInstalled, setShowNotInstalled] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      if (auth && !installation) {
-        setShowNotInstalled(true);
-      }
-    }, 1000);
-  }, [installation, auth]);
+  const { installation } = useContext(AuthContext);
 
   return (
     <div className="flex items-start py-5 justify-center min-h-screen">
-      {auth && (
-        <NotInstalled
-          githubID={auth.user.githubID}
-          setShow={setShowNotInstalled}
-          show={showNotInstalled}
-        />
-      )}
       {installation && <Installed></Installed>}
     </div>
   );
