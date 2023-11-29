@@ -100,7 +100,7 @@ const ConfigurationGenerator = () => {
           onClick={async () => {
             await submit(id, repoID, cron, privatePosts, auth.jwt);
 
-            await refresh();
+            await refresh(auth.jwt);
             navigate(`/dashboard`);
           }}
           className="self-end text-white bg-green-700 hover:bg-green-500 border-slate-200 px-4 py-2 rounded"
