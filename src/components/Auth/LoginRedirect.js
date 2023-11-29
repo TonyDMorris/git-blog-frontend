@@ -54,7 +54,7 @@ const LoginRedirect = (props) => {
   }, [navigate, location, location.search, params.providerName, saveAuthState]);
 
   return (
-    <h1 className="w-full text-center text-3xl font-bold text-gray-900">
+    <h1 className="h-screen w-full text-center text-3xl font-bold text-gray-200">
       {text}
     </h1>
   );
