@@ -32,17 +32,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     fetchAuthState();
   }, []);
-
+  const fetchInstallation = async () => {
+    const installation = await getInstallation({
+      jwt: auth.jwt,
+      repositories: true,
+      repositoryConfigs: true,
+    });
+    setInstallation(installation);
+  };
   useEffect(() => {
-    const fetchInstallation = async () => {
-      const installation = await getInstallation({
-        jwt: auth.jwt,
-        repositories: true,
-        repositoryConfigs: true,
-      });
-      setInstallation(installation);
-    };
-
     if (auth) {
       fetchInstallation();
     }
@@ -66,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         logOut,
         installation,
         setInstallation,
-        refresh: fetchAuthState,
+        refresh: fetchInstallation,
       }}
     >
       {children}
