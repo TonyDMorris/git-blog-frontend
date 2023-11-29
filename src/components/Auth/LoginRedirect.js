@@ -9,7 +9,8 @@ const LoginRedirect = (props) => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
-  const { auth, saveAuthState } = useContext(AuthContext);
+  const { auth, saveAuthState, installation, fetchInstallation } =
+    useContext(AuthContext);
 
   useEffect(() => {
     // Successfully logged with the provider
@@ -34,9 +35,16 @@ const LoginRedirect = (props) => {
           user: res.user,
         });
         setText("Redirecting to dashboard...");
-        setTimeout(() => {
+        if (installation) {
           navigate("/dashboard");
-        }, 2000);
+          return;
+        } else {
+          fetchInstallation();
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+        }
+
         // Redirect to homepage after 3 sec
       })
       .catch((err) => {
@@ -45,7 +53,11 @@ const LoginRedirect = (props) => {
       });
   }, [navigate, location, location.search, params.providerName, saveAuthState]);
 
-  return <p>{text}</p>;
+  return (
+    <h1 className="w-full text-center text-3xl font-bold text-gray-900">
+      {text}
+    </h1>
+  );
 };
 
 export default LoginRedirect;

@@ -84,6 +84,7 @@ export const AuthProvider = ({ children }) => {
         installation,
         setInstallation,
         refresh: fetchInstallation,
+        fetchInstallation,
       }}
     >
       {children}
