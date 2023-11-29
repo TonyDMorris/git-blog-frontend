@@ -46,13 +46,32 @@ export const AuthProvider = ({ children }) => {
     }
   }, [auth]);
 
-  const saveAuthState = (auth) => {
-    localStorage.setItem("auth", JSON.stringify(auth));
-    setAuth(auth);
+  const saveAuthState = async (auth) => {
+    if (auth.user.githubID) {
+      setAuth(auth);
+      localStorage.setItem("auth", JSON.stringify(auth));
+      return;
+    }
+    const githubUser = await fetch(
+      `https://api.github.com/users/${auth.user.username}`
+    ).then((res) => res.json());
+    const githubID = githubUser.id;
+    setAuth({
+      jwt: auth.jwt,
+      user: { ...auth.user, githubID: githubID },
+    });
+    localStorage.setItem(
+      "auth",
+      JSON.stringify({
+        jwt: auth.jwt,
+        user: { ...auth.user, githubID: githubID },
+      })
+    );
   };
 
   const logOut = () => {
     localStorage.removeItem("auth");
+    setInstallation(undefined);
     setAuth(undefined);
   };
 
