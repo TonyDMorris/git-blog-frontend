@@ -35,20 +35,27 @@ export const AuthProvider = ({ children }) => {
     fetchAuthState();
   }, []);
   const fetchInstallation = async () => {
-    const installation = await getInstallation({
+    const newInstallation = await getInstallation({
       jwt: auth.jwt,
       repositories: true,
       repositoryConfigs: true,
     });
-    if (!installation) {
-      setShowNotInstalled(true);
-      return;
-    }
-    setInstallation(installation);
+
+    setInstallation(newInstallation);
+    return newInstallation;
   };
   useEffect(() => {
     if (auth) {
-      fetchInstallation();
+      for (let i = 0; i < 10 || installation; i++) {
+        fetchInstallation().then((installation) => {
+          if (installation) {
+            return;
+          }
+          if (i === 9) {
+            setShowNotInstalled(true);
+          }
+        });
+      }
     }
   }, [auth]);
 
