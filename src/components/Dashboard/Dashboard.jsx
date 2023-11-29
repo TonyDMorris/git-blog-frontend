@@ -10,6 +10,11 @@ const Dashboard = () => {
   const { auth, installation } = useContext(AuthContext);
 
   const [showNotInstalled, setShowNotInstalled] = useState(false);
+  useEffect(() => {
+    if (auth && !installation) {
+      setShowNotInstalled(true);
+    }
+  }, [installation, auth]);
 
   return (
     <div className="flex items-start py-5 justify-center min-h-screen">
