@@ -18,7 +18,6 @@ const Dashboard = () => {
 
   return (
     <div className="flex items-start py-5 justify-center min-h-screen">
-      <Particle></Particle>
       {auth && (
         <NotInstalled
           githubID={auth.user.githubID}
