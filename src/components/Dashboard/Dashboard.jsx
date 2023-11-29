@@ -11,9 +11,11 @@ const Dashboard = () => {
 
   const [showNotInstalled, setShowNotInstalled] = useState(false);
   useEffect(() => {
-    if (auth && !installation) {
-      setShowNotInstalled(true);
-    }
+    setTimeout(() => {
+      if (auth && !installation) {
+        setShowNotInstalled(true);
+      }
+    }, 1000);
   }, [installation, auth]);
 
   return (
