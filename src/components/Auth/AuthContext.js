@@ -47,16 +47,23 @@ export const AuthProvider = ({ children }) => {
         setInstallation(newInstallation);
         return newInstallation;
       };
-      for (let i = 0; i < 10 || installation; i++) {
+
+      fetchInstallation().then((installation) => {
+        if (installation) {
+          return;
+        }
         fetchInstallation().then((installation) => {
           if (installation) {
             return;
           }
-          if (i === 9) {
+          fetchInstallation().then((installation) => {
+            if (installation) {
+              return;
+            }
             setShowNotInstalled(true);
-          }
+          });
         });
-      }
+      });
     }
   }, [auth]);
 
