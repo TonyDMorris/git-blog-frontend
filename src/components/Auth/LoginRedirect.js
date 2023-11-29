@@ -9,8 +9,7 @@ const LoginRedirect = (props) => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
-  const { auth, saveAuthState, installation, fetchInstallation } =
-    useContext(AuthContext);
+  const { auth, saveAuthState, installation } = useContext(AuthContext);
 
   useEffect(() => {
     // Successfully logged with the provider
@@ -35,15 +34,6 @@ const LoginRedirect = (props) => {
           user: res.user,
         });
         setText("Redirecting to dashboard...");
-        if (installation) {
-          navigate("/dashboard");
-          return;
-        } else {
-          fetchInstallation();
-          setTimeout(() => {
-            navigate("/dashboard");
-          }, 2000);
-        }
 
         // Redirect to homepage after 3 sec
       })
@@ -52,6 +42,12 @@ const LoginRedirect = (props) => {
         setText("An error occurred, please see the developer console.");
       });
   }, [navigate, location, location.search, params.providerName, saveAuthState]);
+
+  useEffect(() => {
+    if (auth && installation) {
+      navigate("/dashboard");
+    }
+  }, [auth, installation]);
 
   return (
     <h1 className="h-screen w-full text-center text-3xl font-bold text-gray-200">

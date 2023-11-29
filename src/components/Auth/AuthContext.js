@@ -34,18 +34,19 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     fetchAuthState();
   }, []);
-  const fetchInstallation = async () => {
-    const newInstallation = await getInstallation({
-      jwt: auth.jwt,
-      repositories: true,
-      repositoryConfigs: true,
-    });
 
-    setInstallation(newInstallation);
-    return newInstallation;
-  };
   useEffect(() => {
     if (auth) {
+      const fetchInstallation = async () => {
+        const newInstallation = await getInstallation({
+          jwt: auth.jwt,
+          repositories: true,
+          repositoryConfigs: true,
+        });
+
+        setInstallation(newInstallation);
+        return newInstallation;
+      };
       for (let i = 0; i < 10 || installation; i++) {
         fetchInstallation().then((installation) => {
           if (installation) {
@@ -96,8 +97,6 @@ export const AuthProvider = ({ children }) => {
         logOut,
         installation,
         setInstallation,
-        refresh: fetchInstallation,
-        fetchInstallation,
       }}
     >
       <>
