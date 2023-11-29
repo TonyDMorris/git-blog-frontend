@@ -22,38 +22,29 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import ConfigurationGenerator from "./components/Dashboard/ConfigurationGenerator";
 
 function App() {
-  const [load, upadateLoad] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      upadateLoad(false);
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Router>
-      <Preloader load={load} />
       <AuthProvider>
-        <div className="App w-full" id={load ? "no-scroll" : "scroll"}>
-          <Navbar />
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route
-              path="/connect/:providerName/redirect"
-              element={<LoginRedirect></LoginRedirect>}
-            />
-            <Route
-              path="/repository-configuration"
-              element={<ConfigurationGenerator />}
-            />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-          <Footer />
-        </div>
+        <Navbar />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/connect/:providerName/redirect"
+            element={<LoginRedirect></LoginRedirect>}
+          />
+          <Route
+            path="/repository-configuration/:id"
+            element={<ConfigurationGenerator />}
+          />
+          <Route
+            path="/repository-configuration"
+            element={<ConfigurationGenerator />}
+          />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <Footer />
       </AuthProvider>
     </Router>
   );
