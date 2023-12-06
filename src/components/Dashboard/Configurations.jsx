@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGear, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGear,
+  faPlus,
+  faTrash,
+  faCheck,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthContext";
 import { DeleteRepoConfiguratiion } from "../../StrapiClient/strapi";
@@ -33,7 +38,13 @@ const Configurations = () => {
           Blog Post Configurations
         </h5>
         {possibleSelections.length === 0 ? (
-          "All available repositories are configured"
+          <h5 className="text-sm font-bold leading-none text-green-700">
+            All available repositories are configured
+            <FontAwesomeIcon
+              className="text-green-700 w-4 h-4 ml-2"
+              icon={faCheck}
+            />
+          </h5>
         ) : (
           <button
             onClick={() => {
@@ -127,7 +138,7 @@ const Configuration = ({ configuration }) => {
                 });
               });
             }}
-            className="text-red-600 w-4 h-4 ml-2"
+            className="text-red-600 w-4 h-4 ml-2 hover:cursor-pointer"
             icon={faTrash}
           />
         </div>

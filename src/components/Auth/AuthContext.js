@@ -46,15 +46,15 @@ export const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     if (auth) {
-      fetchInstallation(auth.jwt).then((installation) => {
+      return fetchInstallation(auth.jwt).then((installation) => {
         if (installation) {
           return;
         }
-        fetchInstallation(auth.jwt).then((installation) => {
+        return fetchInstallation(auth.jwt).then((installation) => {
           if (installation) {
             return;
           }
-          fetchInstallation(auth.jwt).then((installation) => {
+          return fetchInstallation(auth.jwt).then((installation) => {
             if (installation) {
               return;
             }

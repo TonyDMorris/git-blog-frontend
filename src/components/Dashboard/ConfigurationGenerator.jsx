@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../Auth/AuthContext";
 import ErrorModal from "../ErrorModal";
-import { getInstallation } from "../../StrapiClient/strapi";
 
-import SelectSearch from "react-select-search";
-import { Button } from "react-bootstrap";
 import {
   PutRepoConfiguratiion,
   PostRepoConfiguratiion,
@@ -15,7 +12,7 @@ import {
 const ConfigurationGenerator = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { installation, auth, refresh } = useContext(AuthContext);
+  const { installation, auth, setInstallation } = useContext(AuthContext);
   const [repoID, setRepoID] = useState(null);
   const [cron, setCron] = useState(null);
   const [privatePosts, setPrivatePosts] = useState(false);
@@ -26,14 +23,16 @@ const ConfigurationGenerator = () => {
 
   useEffect(() => {
     if (installation && !id) {
-      console.log(installation);
-
       setCron("2 weeks");
       setPrivatePosts(false);
       const configRepoIDs =
-        installation.attributes.repository_configurations.data.map((config) => {
-          return config.attributes.repository.data.id;
-        });
+        installation.attributes.repository_configurations.data.map(
+          (config, i) => {
+            console.log(i);
+            console.log(config);
+            return config.attributes.repository.data.id;
+          }
+        );
       const newPossibleSelections =
         installation.attributes.repositories.data.filter((repo) => {
           return configRepoIDs.indexOf(repo.id) === -1;
@@ -43,9 +42,12 @@ const ConfigurationGenerator = () => {
           "You have already configured all of your repositories. Please delete a configuration to add a new one."
         );
         setShowError(true);
+      } else {
+        setPossibleSelections(newPossibleSelections);
+        console.log("newPossibleSelections");
+        console.log(newPossibleSelections);
+        setRepoID(newPossibleSelections[0].id.toString());
       }
-      setPossibleSelections(newPossibleSelections);
-      setRepoID(newPossibleSelections[0].id.toString());
     }
 
     if (installation && id) {
@@ -97,11 +99,39 @@ const ConfigurationGenerator = () => {
           />
         </div>
         <button
-          onClick={async () => {
-            await submit(id, repoID, cron, privatePosts, auth.jwt);
+          onClick={() => {
+            return submit(id, repoID, cron, privatePosts, auth.jwt).then(
+              (res) => {
+                console.log("res");
+                console.log(res);
+                res.data.attributes.repository = {
+                  data: installation.attributes.repositories.data.filter(
+                    (repo) => repo.id.toString() === repoID
+                  )[0],
+                };
 
-            await refresh(auth.jwt);
-            navigate(`/dashboard`);
+                console.log("res.data.attributes.repository");
+                console.log(res.data.attributes.repository);
+
+                if (res) {
+                  setInstallation({
+                    ...installation,
+                    attributes: {
+                      ...installation.attributes,
+                      repository_configurations: {
+                        ...installation.attributes.repository_configurations,
+                        data: [
+                          ...installation.attributes.repository_configurations
+                            .data,
+                          res.data,
+                        ],
+                      },
+                    },
+                  });
+                }
+                navigate(`/dashboard`);
+              }
+            );
           }}
           className="self-end text-white bg-green-700 hover:bg-green-500 border-slate-200 px-4 py-2 rounded"
         >
@@ -203,18 +233,16 @@ const Cron = ({ setCron }) => {
 };
 const submit = async (id, repoID, cron, privatePosts, jwt) => {
   if (id) {
-    PutRepoConfiguratiion(id, cron, privatePosts, jwt)
+    return PutRepoConfiguratiion(id, cron, privatePosts, jwt)
       .then((res) => {
-        console.log(res);
         return res;
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
-    PostRepoConfiguratiion(repoID, cron, privatePosts, jwt)
+    return PostRepoConfiguratiion(repoID, cron, privatePosts, jwt)
       .then((res) => {
-        console.log(res);
         return res;
       })
       .catch((err) => {

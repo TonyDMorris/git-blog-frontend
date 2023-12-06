@@ -17,9 +17,7 @@ export default function Navbar() {
   const [show, setShow] = useState(false);
   const { auth, setAuth, logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(auth);
-  }, [auth]);
+  useEffect(() => {}, [auth]);
   return (
     <Disclosure as="nav" className="bg-slate-900">
       {({ open }) => (
