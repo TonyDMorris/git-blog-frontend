@@ -24,10 +24,10 @@ export default function BlogPost() {
       setBlogPost(newGitBlogPost);
       setBlogContentMarkdownSource(newGitBlogPost.data.attributes.body);
     };
-    if (!isAuthenticating) {
+    if (auth || !isAuthenticating) {
       getPost();
     }
-  }, [postID, auth, isAuthenticating]);
+  }, [postID, auth, isAuthenticating, setBlogContentMarkdownSource]);
 
   return (
     <div className="flex justify-center items-center">
