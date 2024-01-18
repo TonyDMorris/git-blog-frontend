@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(undefined);
   const [installation, setInstallation] = useState(undefined);
   const [showNotInstalled, setShowNotInstalled] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
   const fetchAuthState = async () => {
     const auth = localStorage.getItem("auth");
     console.log(auth);
@@ -27,8 +28,10 @@ export const AuthProvider = ({ children }) => {
         jwt: newAuth.jwt,
         user: { ...newAuth.user, githubID: githubID },
       });
+      setIsAuthenticating(false);
       return;
     }
+    setIsAuthenticating(false);
   };
   // Simulate an async function to fetch auth state
   useEffect(() => {
@@ -103,6 +106,7 @@ export const AuthProvider = ({ children }) => {
         installation,
         setInstallation,
         refresh: fetchInstallation,
+        isAuthenticating,
       }}
     >
       <>

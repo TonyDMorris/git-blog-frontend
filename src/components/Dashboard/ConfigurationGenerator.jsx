@@ -28,8 +28,6 @@ const ConfigurationGenerator = () => {
       const configRepoIDs =
         installation.attributes.repository_configurations.data.map(
           (config, i) => {
-            console.log(i);
-            console.log(config);
             return config.attributes.repository.data.id;
           }
         );

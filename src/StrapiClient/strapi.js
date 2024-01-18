@@ -90,3 +90,27 @@ export const DeleteRepoConfiguratiion = async (configurationID, jwt) => {
   const data = await response.json();
   return data;
 };
+
+export const GetGitBlogPostByID = async (id, jwt) => {
+  const response = await fetch(`${baseURL}/api/git-blog-posts/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+};
+
+export const GetGitBlogPosts = async (jwt) => {
+  const response = await fetch(`${baseURL}/api/git-blog-posts`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  const data = await response.json();
+  return data;
+};

@@ -20,31 +20,34 @@ import { AuthProvider } from "./components/Auth/AuthContext";
 import LoginRedirect from "./components/Auth/LoginRedirect";
 import Dashboard from "./components/Dashboard/Dashboard";
 import ConfigurationGenerator from "./components/Dashboard/ConfigurationGenerator";
+import BlogPost from "./components/BlogPost/BlogPost";
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        <Navbar />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route
-            path="/connect/:providerName/redirect"
-            element={<LoginRedirect></LoginRedirect>}
-          />
-          <Route
-            path="/repository-configuration/:id"
-            element={<ConfigurationGenerator />}
-          />
-          <Route
-            path="/repository-configuration"
-            element={<ConfigurationGenerator />}
-          />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-        <Footer />
+        <div className="flex flex-col justify-between w-full h-screen bg-slate-800 text-white mb-auto">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/connect/:providerName/redirect"
+              element={<LoginRedirect></LoginRedirect>}
+            />
+            <Route
+              path="/repository-configuration/:id"
+              element={<ConfigurationGenerator />}
+            />
+            <Route
+              path="/repository-configuration"
+              element={<ConfigurationGenerator />}
+            />
+            <Route path="/git-blog-posts/:id" element={<BlogPost />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <Footer />
+        </div>
       </AuthProvider>
     </Router>
   );
