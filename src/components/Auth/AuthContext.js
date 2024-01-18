@@ -82,6 +82,7 @@ export const AuthProvider = ({ children }) => {
       jwt: auth.jwt,
       user: { ...auth.user, githubID: githubID },
     });
+    setIsAuthenticating(false);
     localStorage.setItem(
       "auth",
       JSON.stringify({
