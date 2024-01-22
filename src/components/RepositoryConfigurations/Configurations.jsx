@@ -13,7 +13,9 @@ import { DeleteRepoConfiguratiion } from "../../StrapiClient/strapi";
 
 const Configurations = () => {
   const { installation } = useContext(AuthContext);
-  const configurations = installation.attributes.repository_configurations.data;
+  const configurations = installation
+    ? installation.attributes.repository_configurations.data
+    : [];
   const navigate = useNavigate();
   const [possibleSelections, setPossibleSelections] = useState([]);
 
@@ -32,48 +34,54 @@ const Configurations = () => {
   }, [installation]);
 
   return (
-    <div className="w-full max-w-3xl p-4  m-2 border  rounded-lg shadow md:p-8 bg-slate-900 border-slate-800">
-      <div className="flex items-center justify-between mb-4">
-        <h5 className="text-xl font-bold leading-none text-white">
-          Blog Post Configurations
-        </h5>
-        {possibleSelections.length === 0 ? (
-          <h5 className="text-sm font-bold leading-none text-green-700">
-            All available repositories are configured
-            <FontAwesomeIcon
-              className="text-green-700 w-4 h-4 ml-2"
-              icon={faCheck}
-            />
-          </h5>
-        ) : (
-          <button
-            onClick={() => {
-              navigate(`/repository-configuration`);
-            }}
-            className="flex relative  gap-1 bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded hover:cursor-pointer items-center"
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            <span>Create</span>
-            {configurations.length === 0 && (
-              <span className="animate-ping absolute top-0 right-0 inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span>
-            )}
-          </button>
-        )}
-      </div>
-      <div className="flow-root">
-        <ul className="divide-y  divide-gray-200 md:p-0">
-          {configurations &&
-            configurations.map((configuration) => {
-              return (
-                <Configuration
-                  key={configuration.id}
-                  configuration={configuration}
-                />
-              );
-            })}
-        </ul>
-      </div>
-    </div>
+    <>
+      {installation && (
+        <div className="flex items-start py-5 justify-center min-h-screen">
+          <div className="w-full max-w-3xl p-4  m-2 border  rounded-lg shadow md:p-8 bg-slate-900 border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <h5 className="text-xl font-bold leading-none text-white">
+                Blog Post Configurations
+              </h5>
+              {possibleSelections.length === 0 ? (
+                <h5 className="text-sm font-bold leading-none text-green-700">
+                  All available repositories are configured
+                  <FontAwesomeIcon
+                    className="text-green-700 w-4 h-4 ml-2"
+                    icon={faCheck}
+                  />
+                </h5>
+              ) : (
+                <button
+                  onClick={() => {
+                    navigate(`/repository-configurations`);
+                  }}
+                  className="flex relative  gap-1 bg-green-700 hover:bg-green-500 text-white font-bold py-2 px-4 rounded hover:cursor-pointer items-center"
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  <span>Create</span>
+                  {configurations.length === 0 && (
+                    <span className="animate-ping absolute top-0 right-0 inline-flex h-3 w-3 rounded-full bg-green-400 opacity-75"></span>
+                  )}
+                </button>
+              )}
+            </div>
+            <div className="flow-root">
+              <ul className="divide-y  divide-gray-200 md:p-0">
+                {configurations &&
+                  configurations.map((configuration) => {
+                    return (
+                      <Configuration
+                        key={configuration.id}
+                        configuration={configuration}
+                      />
+                    );
+                  })}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -111,7 +119,7 @@ const Configuration = ({ configuration }) => {
           {privatePosts ? "Private" : "Public"}
           <FontAwesomeIcon
             onClick={() => {
-              navigate(`/repository-configuration/${id}`);
+              navigate(`/repository-configurations/${id}`);
             }}
             className="text-white w-4 h-4 ml-2 hover:cursor-pointer "
             icon={faGear}

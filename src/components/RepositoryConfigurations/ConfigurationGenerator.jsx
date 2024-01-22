@@ -119,8 +119,11 @@ const ConfigurationGenerator = () => {
                       repository_configurations: {
                         ...installation.attributes.repository_configurations,
                         data: [
-                          ...installation.attributes.repository_configurations
-                            .data,
+                          ...installation.attributes.repository_configurations.data.filter(
+                            (config) => {
+                              return config.id.toString() !== id;
+                            }
+                          ),
                           res.data,
                         ],
                       },

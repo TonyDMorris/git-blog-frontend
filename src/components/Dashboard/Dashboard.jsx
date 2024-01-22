@@ -1,10 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import Particle from "../Particle";
-import { getInstallation } from "../../StrapiClient/strapi";
+import React, { useContext } from "react";
 import { AuthContext } from "../Auth/AuthContext";
-import ErrorModal from "../ErrorModal";
-import NotInstalled from "./NotInstalled";
-import Configurations from "./Configurations";
+import Configurations from "../RepositoryConfigurations/Configurations";
 
 const Dashboard = () => {
   const { installation } = useContext(AuthContext);
@@ -17,7 +13,15 @@ const Dashboard = () => {
 };
 
 const Installed = () => {
-  return <Configurations></Configurations>;
+  return (
+    <div className="w-full max-w-3xl p-4  m-2 border  rounded-lg shadow md:p-8 bg-slate-900 border-slate-800">
+      <div className="flex items-center justify-between mb-4">
+        <h5 className="text-xl font-bold leading-none text-white">
+          This is the dashboard
+        </h5>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

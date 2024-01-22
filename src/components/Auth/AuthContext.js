@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getInstallation } from "../../StrapiClient/strapi";
-import NotInstalled from "../Dashboard/NotInstalled";
+import NotInstalled from "../RepositoryConfigurations/NotInstalled";
 
 // Create Context
 export const AuthContext = createContext();
@@ -49,15 +49,15 @@ export const AuthProvider = ({ children }) => {
   };
   useEffect(() => {
     if (auth) {
-      return fetchInstallation(auth.jwt).then((installation) => {
+      fetchInstallation(auth.jwt).then((installation) => {
         if (installation) {
           return;
         }
-        return fetchInstallation(auth.jwt).then((installation) => {
+        fetchInstallation(auth.jwt).then((installation) => {
           if (installation) {
             return;
           }
-          return fetchInstallation(auth.jwt).then((installation) => {
+          fetchInstallation(auth.jwt).then((installation) => {
             if (installation) {
               return;
             }
