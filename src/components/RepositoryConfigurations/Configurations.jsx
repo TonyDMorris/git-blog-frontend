@@ -36,10 +36,10 @@ const Configurations = () => {
   return (
     <>
       {installation && (
-        <div className="flex items-start py-5 justify-center min-h-screen">
+        <div className="flex items-start min-w-fit py-5 justify-center ">
           <div className="w-full max-w-3xl p-4  m-2 border  rounded-lg shadow md:p-8 bg-slate-900 border-slate-800">
             <div className="flex items-center justify-between mb-4">
-              <h5 className="text-xl font-bold leading-none text-white">
+              <h5 className="text-xl p-2 font-bold leading-none text-white">
                 Blog Post Configurations
               </h5>
               {possibleSelections.length === 0 ? (
@@ -110,9 +110,7 @@ const Configuration = ({ configuration }) => {
         </div>
         <div className="flex-1 min-w-0 ms-4">
           <p className="text-sm font-medium truncate text-white">{fullName}</p>
-          <p className="hidden md:block text-sm  truncate text-gray-200">
-            DIFF MONSTER is configured to generate a blog post <br />
-          </p>
+
           <p className="text-sm  truncate text-gray-400">Every {cron}</p>
         </div>
         <div className="inline-flex items-center text-base font-semibold text-white">

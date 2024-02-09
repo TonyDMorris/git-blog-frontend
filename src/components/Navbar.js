@@ -29,7 +29,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-slate-900 flex items-center justify-center m-0"
+      className="bg-slate-900 w-full flex items-center justify-center m-0"
     >
       {({ open }) => (
         <>

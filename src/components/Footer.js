@@ -5,7 +5,7 @@ function Footer() {
   let date = new Date();
   let year = date.getFullYear();
   return (
-    <footer className="rounded-lg  shadow bg-slate-900 ">
+    <footer className="rounded-lg shadow w-full bg-slate-900 ">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a

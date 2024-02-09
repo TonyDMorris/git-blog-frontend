@@ -27,7 +27,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="flex flex-col justify-between w-full min-h-screen bg-slate-800 text-white ">
+        <div className="flex flex-col justify-between items-center w-full min-h-screen bg-slate-800 text-white">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
