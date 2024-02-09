@@ -23,7 +23,7 @@ export const getInstallation = async ({
     }
   );
   const data = await response.json();
-  return data.data[0];
+  return data.data;
 };
 
 export const PostRepoConfiguratiion = async (

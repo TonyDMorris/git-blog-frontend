@@ -43,8 +43,13 @@ export const AuthProvider = ({ children }) => {
       repositories: true,
       repositoryConfigs: true,
     });
+    console.log(newInstallation);
 
-    setInstallation(newInstallation);
+    const personalInstallation = newInstallation.filter((installation) => {
+      return installation.attributes.type === "User";
+    })[0];
+
+    setInstallation(personalInstallation);
     return newInstallation;
   };
   useEffect(() => {
